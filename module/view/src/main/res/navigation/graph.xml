@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/graph"
+    app:startDestination="@id/listUserFragment">
+
+    <fragment
+        android:id="@+id/listUserFragment"
+        android:name="my.trinity.view.list_user_data.ListUserFragment"
+        android:label="ListUserFragment">
+        <action
+            android:id="@+id/action_listUserFragment_to_addUserDataFragment"
+            app:destination="@id/addUserDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addUserDataFragment"
+        android:name="my.trinity.view.save_user_data.AddUserDataFragment"
+        android:label="AddUserDataFragment" />
+
+</navigation>
