@@ -17,6 +17,7 @@ import my.trinity.test.module.view.databinding.ListBinding
 @AndroidEntryPoint
 class ListUserFragment : Fragment() {
     val vm by viewModels<ListUserViewModel>()
+    private lateinit var binding:ListBinding
     val adapter = ListUserAdapter {
 
     }
@@ -25,6 +26,7 @@ class ListUserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = ListBinding.inflate(LayoutInflater.from(requireContext()), container, false).apply {
         this.vm = this@ListUserFragment.vm
+        this@ListUserFragment.binding = this
         this.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.add) {
                 findNavController().navigate(ListUserFragmentDirections.actionListUserFragmentToAddUserDataFragment())
@@ -43,6 +45,7 @@ class ListUserFragment : Fragment() {
     private fun observeList() {
         lifecycleScope.launch {
             vm.listResult.collect {
+                binding.swipeRefresh.isRefreshing = false
                 when (it) {
                     is ResultFlowModel.Error -> {}
                     is ResultFlowModel.None -> {}
