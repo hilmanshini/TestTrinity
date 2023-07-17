@@ -29,9 +29,9 @@ class ListUserViewModel @Inject constructor(
         }
     }
 
-    fun query(){
+    fun query(q:String){
         viewModelScope.launch {
-            listUseCase().collect {
+            listUseCase("%${q}%").collect {
                 listResult.value = it
             }
         }

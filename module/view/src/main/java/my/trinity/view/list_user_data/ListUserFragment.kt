@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +19,7 @@ import my.trinity.test.module.view.databinding.ListBinding
 @AndroidEntryPoint
 class ListUserFragment : Fragment() {
     val vm by viewModels<ListUserViewModel>()
-    private lateinit var binding:ListBinding
+    private lateinit var binding: ListBinding
     val adapter = ListUserAdapter {
 
     }
@@ -32,6 +34,24 @@ class ListUserFragment : Fragment() {
                 findNavController().navigate(ListUserFragmentDirections.actionListUserFragmentToAddUserDataFragment())
             }
             true
+        }
+        this.toolbar.menu.findItem(R.id.search)?.let {
+            (it.actionView as SearchView).run {
+                this.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        this@ListUserFragment.vm.query(query.orEmpty())
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        return true
+                    }
+                })
+                this.setOnCloseListener {
+                    this@ListUserFragment.vm.refresh()
+                    false
+                }
+            }
         }
         this.lifecycleOwner = viewLifecycleOwner
         this.recycler.adapter = this@ListUserFragment.adapter
