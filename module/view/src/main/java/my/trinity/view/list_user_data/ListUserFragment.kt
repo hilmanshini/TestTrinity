@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,7 +19,7 @@ import my.trinity.test.module.view.databinding.ListBinding
 
 @AndroidEntryPoint
 class ListUserFragment : Fragment() {
-    val vm by viewModels<ListUserViewModel>()
+    val vm by activityViewModels<ListUserViewModel>()
     private lateinit var binding: ListBinding
     val adapter = ListUserAdapter {
 

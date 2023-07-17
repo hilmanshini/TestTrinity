@@ -25,8 +25,13 @@ class AddUserDataViewModel @Inject constructor(
     val email = MutableStateFlow<String>("")
     val dob = MutableStateFlow<String>("")
     val result = MutableStateFlow<ResultFlowModel<UserDataModel>>(ResultFlowModel.None())
+    val validation = MutableStateFlow<String>("")
 
     fun saveData() {
+        if (firstName.value.isEmpty() || lastName.value.isEmpty() || email.value.isEmpty() || dob.value.isEmpty()) {
+            validation.value = "Invalid Form"
+            return
+        }
         viewModelScope.launch {
             saveUserDataUseCase(
                 firstName.value,

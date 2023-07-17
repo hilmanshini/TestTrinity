@@ -77,6 +77,8 @@
                 android:onClick="@{()->onDataClick.invoke()}"
                 android:layout_height="wrap_content"
                 android:hint="Dob"
+                android:focusable="false"
+                android:id="@+id/date"
                 android:inputType="none"
                 android:text="@={vm.dob}" />
         </com.google.android.material.textfield.TextInputLayout>
